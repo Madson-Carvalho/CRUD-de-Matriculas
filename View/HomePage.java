@@ -5,9 +5,9 @@ import java.awt.*;
 
 public class HomePage extends JPanel {
     public BorderLayout layout;
-
+    private HomeButtons homeButtons;
     private Header header;
-    private Table table;
+    //private Table table;
 
     public HomePage() {
         setBackground(Color.decode("#8C8C8C"));
@@ -20,8 +20,10 @@ public class HomePage extends JPanel {
         header = new Header();
         addComponent(header, "north");
 
-        table = new Table();
-        addComponent(table, "center");
+        //table = new Table();
+        //addComponent(table, "center");
+        homeButtons = new HomeButtons();
+        addComponent(homeButtons, "center");
     }
 
     private void addComponent(JComponent component, String position) {
