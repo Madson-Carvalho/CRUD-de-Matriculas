@@ -1,16 +1,20 @@
 package View;
 
+import java.awt.Font;
 import javax.swing.*;
 
-public class Header extends JPanel{
+public class Header extends JPanel {
 
     public Header() {
         render();
     }
 
     private void render() {
-        // Adicionando um botão na primeira célula
-        JLabel header = new JLabel("Lista de alunos cadastrados");
+        JLabel header = new JLabel("LISTA DE ALUNOS CADASTRADOS");
+        header.setHorizontalAlignment(JLabel.CENTER);
+        header.setVerticalAlignment(JLabel.CENTER);
+        header.setFont(new Font("Times New Roman", Font.BOLD, 30));
         add(header);
     }
+
 }
