@@ -1,29 +1,29 @@
 package View;
 
+import View.Table.Table;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class HomePage extends JPanel {
-    public BorderLayout layout;
-    private HomeButtons homeButtons;
+    private BorderLayout layout;
     private Header header;
-    //private Table table;
+    private Table table;
 
     public HomePage() {
         setBackground(Color.decode("#8C8C8C"));
-        layout = new BorderLayout(5, 5);
+        layout = new BorderLayout(5,5);
         setLayout(layout);
         initialize();
     }
 
     private void initialize() {
-        header = new Header();
+        header = new Header("LISTA DE ALUNOS CADASTRADOS");
         addComponent(header, "north");
 
-        //table = new Table();
-        //addComponent(table, "center");
-        homeButtons = new HomeButtons();
-        addComponent(homeButtons, "center");
+        table = new Table();
+        addComponent(table,"center");
+
     }
 
     private void addComponent(JComponent component, String position) {

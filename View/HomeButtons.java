@@ -9,7 +9,6 @@ public class HomeButtons extends JPanel {
     public HomeButtons() {
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         showButtons();
-
     }
 
     private void showButtons() {
