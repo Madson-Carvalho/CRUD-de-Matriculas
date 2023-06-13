@@ -13,7 +13,7 @@ public class FormFields {
     private JPasswordField password;
     private JComboBox<String> course;
     private JTextArea obs;
-    private JRadioButton active;
+    private JCheckBox active;
 
     private String[] courses = {"Administração", "ADS", "Medicina", "Direito", "Design", "Psicologia", "Física"};
 
@@ -70,23 +70,16 @@ public class FormFields {
         JScrollPane scrollPane;
         fieldLabel = new JLabel("Observações");
         baseForm.addFormComponents(fieldLabel,9,0);
-        obs = new JTextArea(25,250);
+        obs = new JTextArea(3,25);
         scrollPane = new JScrollPane(obs);
         baseForm.addFormComponents(scrollPane, 9,1,3,3);
 
-        JPanel jPanel = new JPanel();
         fieldLabel = new JLabel("Ativo");
-        baseForm.addFormComponents(fieldLabel,10,0);
-        ButtonGroup buttonGroup = new ButtonGroup();
-        active = new JRadioButton("Sim");
-        buttonGroup.add(active);
-        jPanel.add(active);
-        active = new JRadioButton("Não");
-        buttonGroup.add(active);
-        jPanel.add(active);
-        baseForm.addFormComponents(jPanel, 10,1);
+        baseForm.addFormComponents(fieldLabel,12,0);
+        active = new JCheckBox();
+        baseForm.addFormComponents(active, 12,1);
 
-        baseForm.addFormComponents(formButtons,11,0);
+        baseForm.addFormComponents(formButtons,13,0,2,0);
 
     }
 }

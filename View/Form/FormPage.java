@@ -21,6 +21,7 @@ public class FormPage extends JPanel {
 
     private void initialize() {
         registerForm = new RegisterForm();
+
         add(registerForm,BorderLayout.CENTER);
 
         header = new Header("CADASTRAR NOVO USUÁRIO");
