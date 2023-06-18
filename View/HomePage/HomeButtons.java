@@ -10,6 +10,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 public class HomeButtons extends JPanel {
     private BaseLayout baseLayout;
     private JTable table;
@@ -49,8 +53,15 @@ public class HomeButtons extends JPanel {
         remove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegistrationStorage.delete(tableModel.getRegistrationModel(table.getSelectedRow()));
-                tableModel.remove(tableModel.getRegistrationModel(table.getSelectedRow()));
+                int dialogobutton = 0;
+                dialogobutton = JOptionPane.showConfirmDialog(null, "Deseja realmente remover?", "Cadastro de Matricula",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,null);
+                if(dialogobutton == JOptionPane.YES_OPTION) {
+                    RegistrationStorage.delete(tableModel.getRegistrationModel(table.getSelectedRow()));
+                    tableModel.remove(tableModel.getRegistrationModel(table.getSelectedRow()));
+                }if(dialogobutton == JOptionPane.NO_OPTION) {
+                    baseLayout.showHomePage();
+                }
             }
         });
         add(remove);
