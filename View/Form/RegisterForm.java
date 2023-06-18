@@ -4,6 +4,7 @@ import Model.RegistrationModel;
 import Model.RegistrationStorage;
 import View.BaseLayout;
 
+import View.HomePage.HomePage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -178,8 +179,14 @@ public class RegisterForm extends JPanel {
                     registrationModel = new RegistrationModel();
 
                     insertModelData(registrationModel, true);
+                    JOptionPane.showMessageDialog(RegisterForm.this, "Adicionado com sucesso!", "Cadastro de Matrícula",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    baseLayout.showHomePage();
                 } else {
                     insertModelData(registrationModel, false);
+                    JOptionPane.showMessageDialog(RegisterForm.this, "Atualizado com sucesso!", "Cadastro de Matrícula",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    baseLayout.showHomePage();
                 }
             }
         });
@@ -192,7 +199,15 @@ public class RegisterForm extends JPanel {
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                baseLayout.showHomePage();
+                int dialogobutton = 0;
+                dialogobutton = JOptionPane.showConfirmDialog(null, "Deseja realmente cancelar?", "Cadastro de Matricula",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(dialogobutton == JOptionPane.YES_OPTION) {
+                    baseLayout.showHomePage();
+                }if(dialogobutton == JOptionPane.NO_OPTION) {
+                    baseLayout.showFormPage(null);
+                }
+
             }
         });
 
@@ -217,7 +232,6 @@ public class RegisterForm extends JPanel {
         } else {
             RegistrationStorage.update(model);
         }
-        baseLayout.showHomePage();
     }
 
     public void addFormComponents(JComponent component, int row, int column) {
