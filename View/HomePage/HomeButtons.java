@@ -11,10 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HomeButtons extends JPanel {
-    private JButton button;
     private BaseLayout baseLayout;
     private JTable table;
     private TableModel tableModel;
+    private JButton addNew;
+    private JButton edit;
+    private JButton remove;
 
     public HomeButtons(BaseLayout baseLayout, JTable table, TableModel tableModel) {
         this.baseLayout = baseLayout;
@@ -25,33 +27,43 @@ public class HomeButtons extends JPanel {
     }
 
     private void showButtons() {
-        button = new JButton("Adicionar");
-        button.addActionListener(new ActionListener() {
+        addNew = new JButton("Adicionar");
+        addNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 baseLayout.showFormPage(null);
             }
         });
-        add(button);
+        add(addNew);
 
-        button = new JButton("Editar");
-        button.addActionListener(new ActionListener() {
+        edit = new JButton("Editar");
+        edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 baseLayout.showFormPage(tableModel.getRegistrationModel(table.getSelectedRow()));
             }
         });
-        add(button);
+        add(edit);
 
-        button = new JButton("Remover");
-        button.addActionListener(new ActionListener() {
+        remove = new JButton("Remover");
+        remove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RegistrationStorage.delete(tableModel.getRegistrationModel(table.getSelectedRow()));
                 tableModel.remove(tableModel.getRegistrationModel(table.getSelectedRow()));
             }
         });
-        add(button);
+        add(remove);
+    }
+
+    public void enableButton() {
+        edit.setEnabled(true);
+        remove.setEnabled(true);
+    }
+
+    public void disableButton() {
+        edit.setEnabled(false);
+        remove.setEnabled(false);
     }
 
 }

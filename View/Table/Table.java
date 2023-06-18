@@ -5,6 +5,8 @@ import View.BaseLayout;
 import View.HomePage.HomeButtons;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 public class Table extends JPanel {
@@ -30,6 +32,20 @@ public class Table extends JPanel {
         table = new JTable(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    if  (table.getSelectedRow() >= 0) {
+                        homeButtons.enableButton();
+                } else {
+                        homeButtons.disableButton();
+                    }
+                }
+
+            }
+        });
+
 
         JScrollPane scrollPane = new JScrollPane(table);
         constraints.gridx = 0;
