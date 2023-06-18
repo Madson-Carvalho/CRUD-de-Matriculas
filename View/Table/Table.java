@@ -1,7 +1,8 @@
 package View.Table;
 
-import Model.TarefaStorage;
-import View.HomeButtons;
+import Model.RegistrationStorage;
+import View.BaseLayout;
+import View.HomePage.HomeButtons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +13,11 @@ public class Table extends JPanel {
     private TableModel tableModel;
     private GridBagConstraints constraints;
     private GridBagLayout layout;
+    private BaseLayout baseLayout;
 
-    public Table() {
+    public Table(BaseLayout baseLayout) {
+        this.baseLayout = baseLayout;
         layout = new GridBagLayout();
-        setBackground(Color.decode("#8C8C8C"));
         setLayout(layout);
         constraints = new GridBagConstraints();
         createTable();
@@ -24,9 +26,10 @@ public class Table extends JPanel {
 
     private void createTable() {
 
-        tableModel = new TableModel(TarefaStorage.listar());
+        tableModel = new TableModel(RegistrationStorage.retrieve());
         table = new JTable(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         JScrollPane scrollPane = new JScrollPane(table);
         constraints.gridx = 0;
@@ -37,7 +40,7 @@ public class Table extends JPanel {
         layout.setConstraints(scrollPane, constraints);
         add(scrollPane);
 
-        homeButtons = new HomeButtons();
+        homeButtons = new HomeButtons(baseLayout, table, tableModel);
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 1;
@@ -45,6 +48,10 @@ public class Table extends JPanel {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         layout.setConstraints(homeButtons, constraints);
         add(homeButtons);
+    }
+
+    public void reloadTableData() {
+        tableModel.reloadTable(RegistrationStorage.retrieve());
     }
 
 }

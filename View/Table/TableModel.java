@@ -1,35 +1,34 @@
 package View.Table;
 
-import Model.Tarefa;
+import Model.RegistrationModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TableModel extends AbstractTableModel {
-    private List<Tarefa> tarefas = new ArrayList<Tarefa>();
-    private String[] colunas = new String[] { "Id", "Nome", "Descrição" };
+    private ArrayList<RegistrationModel> registrationModels = new ArrayList<RegistrationModel>();
+    private String[] column = new String[] { "Nome", "Idade", "E-mail", "Endereço", "CEP", "Telefone", "Observação", "Ativo", "Curso" };
 
-    public TableModel(List<Tarefa> tarefas) {
-        this.tarefas = tarefas;
+    public TableModel(ArrayList<RegistrationModel> registrationModels) {
+        this.registrationModels = registrationModels;
     }
 
     @Override
     public int getRowCount() {
-        return tarefas.size();
+        return registrationModels.size();
     }
 
     @Override
     public int getColumnCount() {
-        return colunas.length;
+        return column.length;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
         String columnName = null;
 
-        if (columnIndex >= 0 && columnIndex < colunas.length) {
-            columnName = colunas[columnIndex];
+        if (columnIndex >= 0 && columnIndex < column.length) {
+            columnName = column[columnIndex];
         }
         return columnName;
     }
@@ -38,18 +37,36 @@ public class TableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         String value = null;
 
-        if (rowIndex >= 0 && rowIndex < tarefas.size()) {
-            Tarefa tarefa = tarefas.get(rowIndex);
+        if (rowIndex >= 0 && rowIndex < registrationModels.size()) {
+            RegistrationModel model = registrationModels.get(rowIndex);
 
             switch (columnIndex) {
                 case 0:
-                    value = Integer.toString(tarefa.getId());
+                    value = model.getName();
                     break;
                 case 1:
-                    value = tarefa.getNome();
+                    value = Integer.toString(model.getFullAge());
                     break;
                 case 2:
-                    value = tarefa.getDescricao();
+                    value = model.getEmail();
+                    break;
+                case 3:
+                    value = model.getAdress();
+                    break;
+                case 4:
+                    value = model.getCep();
+                    break;
+                case 5:
+                    value = model.getPhone();
+                    break;
+                case 6:
+                    value = model.getObs();
+                    break;
+                case 7:
+                    value = model.isActive() ? "Sim" : "Não";
+                    break;
+                case 8:
+                    value = model.getCourse();
                     break;
                 default:
                     System.err.printf("[ERRO] Índice de coluna inválido: %d\n", columnIndex);
@@ -59,23 +76,23 @@ public class TableModel extends AbstractTableModel {
         return value;
     }
 
-    public Tarefa getTarefa(int rowIndex) {
-        Tarefa tarefa = null;
+    public RegistrationModel getRegistrationModel(int rowIndex) {
+        RegistrationModel registrationModel = null;
 
-        if (rowIndex >= 0 && rowIndex < tarefas.size()) {
-            tarefa = tarefas.get(rowIndex);
+        if (rowIndex >= 0 && rowIndex < registrationModels.size()) {
+            registrationModel = registrationModels.get(rowIndex);
         }
 
-        return tarefa;
+        return registrationModel;
     }
 
-    public void carregar(List<Tarefa> tarefas) {
-        this.tarefas = tarefas;
+    public void reloadTable(ArrayList<RegistrationModel> registrationModels) {
+        this.registrationModels = registrationModels;
         fireTableDataChanged();
     }
 
-    public void remover(Tarefa tarefa) {
-        tarefas.remove(tarefa);
+    public void remove(RegistrationModel model) {
+        registrationModels.remove(model);
         fireTableDataChanged();
     }
 

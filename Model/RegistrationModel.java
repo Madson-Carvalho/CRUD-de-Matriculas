@@ -1,6 +1,7 @@
 package Model;
 
 public class RegistrationModel {
+  private int id;
   private String name;
   private int fullAge;
   private String email;
@@ -12,6 +13,14 @@ public class RegistrationModel {
   private String course;
   private String obs;
   private boolean active;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;
