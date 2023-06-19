@@ -55,16 +55,19 @@ public class HomeButtons extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int dialogobutton = 0;
                 dialogobutton = JOptionPane.showConfirmDialog(null, "Deseja realmente remover?", "Cadastro de Matricula",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,null);
-                if(dialogobutton == JOptionPane.YES_OPTION) {
+                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+                if (dialogobutton == JOptionPane.YES_OPTION) {
                     RegistrationStorage.delete(tableModel.getRegistrationModel(table.getSelectedRow()));
                     tableModel.remove(tableModel.getRegistrationModel(table.getSelectedRow()));
-                }if(dialogobutton == JOptionPane.NO_OPTION) {
+                }
+                if (dialogobutton == JOptionPane.NO_OPTION) {
                     baseLayout.showHomePage();
                 }
             }
         });
         add(remove);
+
+        disableButton();
     }
 
     public void enableButton() {

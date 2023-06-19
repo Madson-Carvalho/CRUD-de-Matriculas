@@ -5,6 +5,7 @@ import Model.RegistrationStorage;
 import View.BaseLayout;
 
 import View.HomePage.HomePage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -176,17 +177,30 @@ public class RegisterForm extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (registrationModel == null) {
-                    registrationModel = new RegistrationModel();
 
-                    insertModelData(registrationModel, true);
-                    JOptionPane.showMessageDialog(RegisterForm.this, "Adicionado com sucesso!", "Cadastro de Matrícula",
-                        JOptionPane.INFORMATION_MESSAGE);
-                    baseLayout.showHomePage();
+                    if (verifyFields()) {
+                        registrationModel = new RegistrationModel();
+
+                        insertModelData(registrationModel, true);
+
+                        JOptionPane.showMessageDialog(RegisterForm.this, "Adicionado com sucesso!", "Cadastro de Matrícula",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        baseLayout.showHomePage();
+                    } else {
+                        JOptionPane.showMessageDialog(RegisterForm.this, "Oops, houve alguma falha na verificação dos campos. :( \n Por favor verifique: \n Se os campos marcados com '*' estão preenchidos \n Se o campo Idade contém um número \n Se foi selecionado algum curso.", "Cadastro de Matrícula",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    insertModelData(registrationModel, false);
-                    JOptionPane.showMessageDialog(RegisterForm.this, "Atualizado com sucesso!", "Cadastro de Matrícula",
-                        JOptionPane.INFORMATION_MESSAGE);
-                    baseLayout.showHomePage();
+                    if (verifyFields()) {
+                        insertModelData(registrationModel, false);
+
+                        JOptionPane.showMessageDialog(RegisterForm.this, "Atualizado com sucesso!", "Cadastro de Matrícula",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        baseLayout.showHomePage();
+                    } else {
+                        JOptionPane.showMessageDialog(RegisterForm.this, "Oops, houve alguma falha na verificação dos campos. :( \n Por favor verifique: \n Se os campos marcados com '*' estão preenchidos \n Se o campo Idade contém um número \n Se foi selecionado algum curso.", "Cadastro de Matrícula",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
@@ -201,10 +215,11 @@ public class RegisterForm extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int dialogobutton = 0;
                 dialogobutton = JOptionPane.showConfirmDialog(null, "Deseja realmente cancelar?", "Cadastro de Matricula",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if(dialogobutton == JOptionPane.YES_OPTION) {
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (dialogobutton == JOptionPane.YES_OPTION) {
                     baseLayout.showHomePage();
-                }if(dialogobutton == JOptionPane.NO_OPTION) {
+                }
+                if (dialogobutton == JOptionPane.NO_OPTION) {
                     baseLayout.showFormPage(null);
                 }
 
@@ -234,8 +249,25 @@ public class RegisterForm extends JPanel {
         }
     }
 
+    public boolean verifyFields() {
+        if (nameTxt.getText().isEmpty() || email.getText().isEmpty() || adress.getText().isEmpty() || user.getText().isEmpty() || password.getText().isEmpty() || course.getSelectedItem().toString().isEmpty() || course.getSelectedItem().toString().equals("Selecione uma opção") || fullAge.getText().isEmpty()) {
+            return false;
+        }
+
+        if (!fullAge.getText().isEmpty()) {
+            try {
+                Integer.parseInt(fullAge.getText());
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void addFormComponents(JComponent component, int row, int column) {
-        addFormComponents(component,row,column,1,1);
+        addFormComponents(component, row, column, 1, 1);
     }
 
     public void addFormComponents(JComponent component, int row, int column, int width, int height) {
